@@ -10,13 +10,13 @@
 }
 
 :root {
-    /* Colors from the style guide */
+    /* ---- COLORS from style guide ---- */
     --clr-yellow: hsl(47, 88%, 63%);
     --clr-white: hsl(0, 0%, 100%);
     --clr-gray-500: hsl(0, 0%, 42%);
     --clr-gray-950: hsl(0, 0%, 7%);
 
-    /* Typography */
+    /* ---- TYPOGRAPHY ---- */
     --ff-body: "Figtree", sans-serif;
     --fs-paragraph: 1rem;
     /* 16px */
@@ -29,10 +29,17 @@
     --fs-author: 0.875rem;
     /* 14px */
 
-    /* Misc */
-    --radius-card: 10px;
-    /* Solid black shadow exactly 10px right, 10px down */
-    --shadow-card: 10px 10px 0 rgba(0, 0, 0, 1);
+    /* ---- SPACING & SHADOWS ---- */
+    --radius-card: 0.625rem;
+    /* 10px ÷ 16 = 0.625rem */
+    --radius-pill: 0.25rem;
+    /* 4px ÷ 16 = 0.25rem */
+
+    /* box-shadow offsets are 10px each → 0.625rem each */
+    --shadow-x: 0.625rem;
+    --shadow-y: 0.625rem;
+
+    --shadow-card: var(--shadow-x) var(--shadow-y) 0 var(--clr-gray-950);
     --transition-speed: 0.25s;
 }
 
@@ -41,6 +48,7 @@
    ----------------------------------- */
 html {
     font-size: 100%;
+    /* 1rem = 16px */
 }
 
 body {
@@ -50,103 +58,119 @@ body {
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    /* 16px */
     font-family: var(--ff-body);
     color: var(--clr-gray-500);
+    /* default body color = Gray 500 */
 }
 
-/* Keep card max‐width at 375px so it’s centered on desktop */
+/* Container stays at exactly 375px (23.4375rem) maximum */
 .container {
-    max-width: 375px;
+    max-width: 23.4375rem;
+    /* 375px ÷ 16 = 23.4375rem */
     width: 100%;
 }
 
 /* -----------------------------------
-   3) CARD STYLING
+   3) CARD STYLING (MOBILE-FIRST)
    ----------------------------------- */
 .card {
     background-color: var(--clr-white);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
     overflow: hidden;
-    /* clip children to the same radius */
+    /* clip children to that 0.625rem radius */
     display: flex;
     flex-direction: column;
-    transition: transform var(--transition-speed);
+
+    /* Only animate if user DID NOT request reduced motion */
+    @media (prefers-reduced-motion: no-preference) {
+        transition: transform var(--transition-speed) ease-in-out;
+    }
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    @media (prefers-reduced-motion: no-preference) {
+        transform: translateY(-0.3125rem);
+        /* -5px → -0.3125rem */
+    }
 }
 
 /* -----------------------------------
-   IMAGE WRAPPER WITH PADDING
+   4) IMAGE WRAPPER WITH PADDING
    ----------------------------------- */
 .card__image {
-  /* 1) Clip to the card’s rounded top corners: */
-  overflow: hidden;
-  border-top-left-radius: var(--radius-card);
-  border-top-right-radius: var(--radius-card);
+    /* Clip to the same top-radius as the card */
+    overflow: hidden;
+    border-top-left-radius: var(--radius-card);
+    border-top-right-radius: var(--radius-card);
 
-  /* 2) Add padding so the image “floats” in a white frame */
-  /*    Match this to your .card__content’s side padding (1.5rem) */
-  padding: 1.5rem 1.5rem 0; 
+    /* Add 1.5rem padding (24px) on top/left/right to create a white “frame” */
+    padding: 1.5rem 1.5rem 0;
 }
 
-/* The <img> then simply fills 100% of its (padded) container: */
 .card__image img {
-  display: block;
-  width: 100%;
-  height: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    /* If you ever replace with a non-SVG, you could add object-fit here */
 }
 
-
-/* ---------- CONTENT AREA ---------- */
+/* -----------------------------------
+   5) CONTENT AREA
+   ----------------------------------- */
 .card__content {
     padding: 1.5rem;
-    /* 24px of padding (mobile-first) */
+    /* 24px all around */
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    /* 16px between each content block */
+    /* 16px between each child */
 }
 
-/* ----- Category Pill (“Learning”) ----- */
+/* ----- CATEGORY PILL (“Learning”) ----- */
 .card__category {
-  display: inline-block;
-  align-self: flex-start;       /* stop it stretching in the flex container */
-  background-color: var(--clr-yellow);
-  color: var(--clr-gray-950);
-  font-size: var(--fs-category);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  margin-bottom: 0.25rem;
-  /* remove width: 100% or any width setting so it truly auto‐sizes */
+    display: inline-block;
+    align-self: flex-start;
+    /* prevents flex from stretching it */
+    background-color: var(--clr-yellow);
+    color: var(--clr-gray-950);
+    /* Gray 950 for contrast */
+    font-size: var(--fs-category);
+    font-weight: 800;
+    /* Figtree 800 */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.25rem 0.5rem;
+    /* 4px 8px (0.25rem = 4px; 0.5rem = 8px) */
+    border-radius: var(--radius-pill);
+    margin-bottom: 0.25rem;
+    /* 4px gap to the date */
+    width: auto;
+    /* ensure no accidental 100% width */
 }
 
-/* ----- Date (“Published 21 Dec 2023”) ----- */
+/* ----- DATE (“Published 21 Dec 2023”) ----- */
 .card__date {
     font-size: var(--fs-date);
     /* 12px */
     color: var(--clr-gray-500);
-    /* gray 500 for “Published …” */
+    /* Gray 500 */
     opacity: 0.6;
     margin-bottom: 1rem;
-    /* 16px gap to the heading */
+    /* 16px gap before the H1 */
 }
 
-/* ----- Title (H1) ----- */
+/* ----- TITLE (H1) ----- */
 .card__title {
     font-size: var(--fs-title);
     /* 24px on mobile */
     font-weight: 800;
     /* Figtree 800 */
     color: var(--clr-gray-950);
-    /* nearly black (hsl(0, 0%, 7%)) */
+    /* Gray 950 (nearly black) */
     line-height: 1.3;
-    transition: color var(--transition-speed);
+    transition: color var(--transition-speed) ease-in-out;
 }
 
 .card:hover .card__title {
@@ -155,29 +179,31 @@ body {
     cursor: pointer;
 }
 
-/* ----- Description Paragraph ----- */
+/* ----- DESCRIPTION PARAGRAPH ----- */
 .card__description {
     font-size: var(--fs-paragraph);
     /* 16px */
     line-height: 1.5;
     color: var(--clr-gray-500);
-    /* gray‐500 for body text */
+    /* Gray 500 */
     opacity: 0.8;
 }
 
-/* ----- Author Row (avatar + name) ----- */
+/* ----- AUTHOR ROW (AVATAR + NAME) ----- */
 .card__author {
     display: flex;
     align-items: center;
     gap: 1rem;
-    /* 16px between avatar and name */
+    /* 16px between avatar & name */
     margin-top: auto;
-    /* pushes author to bottom of card */
+    /* push author row to bottom */
 }
 
 .card__avatar {
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    /* 40px / 16 = 2.5rem */
+    height: 2.5rem;
+    /* 40px / 16 = 2.5rem */
     border-radius: 50%;
     object-fit: cover;
 }
@@ -188,38 +214,40 @@ body {
     font-weight: 500;
     /* Figtree 500 */
     color: var(--clr-gray-500);
-    /* gray‐500 for author name */
+    /* Gray 500 */
 }
 
 /* -----------------------------------
-   4) DESKTOP BEHAVIOR (≥768px)
+   6) DESKTOP BEHAVIOR (MIN-WIDTH: 48rem = 768px)
    ----------------------------------- */
-@media (min-width: 768px) {
-
-    /* Keep container at 375px so extra yellow appears on each side */
+@media (min-width: 48rem) {
     .container {
-        max-width: 375px;
+        /* keep 23.4375rem (375px) here, so the card stays centered */
+        max-width: 23.4375rem;
     }
 }
 
 /* -----------------------------------
-   5) OPTIONAL LARGER SCREEN ADJUSTMENTS
-   (e.g., bump up the H1 slightly for ≥1024px)
+   7) OPTIONAL LARGER SCREEN ADJUSTMENTS
+      (MIN-WIDTH: 64rem = 1024px)
    ----------------------------------- */
-@media (min-width: 1024px) {
+@media (min-width: 64rem) {
     .card__title {
         font-size: 1.75rem;
-        /* 28px on wide screens, if you choose to scale up */
+        /* 28px on very large screens (optional) */
     }
 }
 
+/* -----------------------------------
+   8) ATTRIBUTION FOOTER
+   ----------------------------------- */
 .attribution {
-    margin-top: 2rem;
-    /* some space under the card */
+    margin-block-start: 2rem;
+    /* 2rem top gap (32px) */
     font-size: 0.625rem;
     /* 10px */
     text-align: center;
-    color: var(--clr-text-dark);
+    color: var(--clr-gray-500);
 }
 
 .attribution a {

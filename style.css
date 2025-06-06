@@ -1,0 +1,210 @@
+/* 1) IMPORT FIGTREE FONT (weights 500 + 800) */
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@500;800&display=swap");
+
+/* 2) GLOBAL RESET & ROOT VARIABLES */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* --- Colors --- */
+    --clr-background: hsl(212, 45%, 89%);
+    /* Very light blue (page background) */
+    --clr-card-bg: hsl(0, 0%, 100%);
+    /* White (card background) */
+    --clr-text-dark: hsl(228, 12%, 48%);
+    /* Dark grayish blue (paragraphs, date, author name) */
+    --clr-text-title: hsl(228, 45%, 44%);
+    /* Dark blue (title, hover states) */
+    --clr-category: hsl(47, 88%, 63%);
+    /* Soft yellow (category label) */
+
+    /* --- Typography --- */
+    --ff-body: "Figtree", sans-serif;
+    --fs-body: 1rem;
+    /* 16px */
+    --fs-category: 0.75rem;
+    /* 12px */
+    --fs-date: 0.75rem;
+    /* 12px */
+    --fs-title: 1.5rem;
+    /* 24px */
+    --fs-description: 1rem;
+    /* 16px */
+    --fs-author: 0.875rem;
+    /* 14px */
+
+    /* --- Misc --- */
+    --radius-medium: 10px;
+    --shadow-card: 0px 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 3) BODY & CONTAINER */
+html {
+    font-size: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--clr-background);
+    font-family: var(--ff-body);
+    font-size: var(--fs-body);
+    color: var(--clr-text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.container {
+    max-width: 375px;
+    /* Mobile container width */
+}
+
+/* 4) CARD STYLING (MOBILE FIRST) */
+.card {
+    background-color: var(--clr-card-bg);
+    border-radius: var(--radius-medium);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+}
+
+.card__image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.card__content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Category & Date (same line on mobile: category first, date below) */
+.card__category {
+    font-size: var(--fs-category);
+    font-weight: 800;
+    color: var(--clr-category);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.card__date {
+    font-size: var(--fs-date);
+    color: var(--clr-text-dark);
+    opacity: 0.6;
+}
+
+/* Title */
+.card__title {
+    font-size: var(--fs-title);
+    font-weight: 800;
+    color: var(--clr-text-title);
+    line-height: 1.3;
+}
+
+/* Description */
+.card__description {
+    font-size: var(--fs-description);
+    line-height: 1.5;
+    color: var(--clr-text-dark);
+    opacity: 0.8;
+}
+
+/* Author Section (avatar + name side by side) */
+.card__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: auto;
+    /* push author to bottom */
+}
+
+.card__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card__author-name {
+    font-size: var(--fs-author);
+    color: var(--clr-text-dark);
+    font-weight: 500;
+}
+
+/* 5) ATTRIBUTION (keep it small) */
+.attribution {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.625rem;
+    /* 10px */
+    color: var(--clr-text-dark);
+}
+
+.attribution a {
+    color: var(--clr-text-title);
+    text-decoration: none;
+}
+
+/* 6) DESKTOP LAYOUT (min-width: 768px & up to 1440px) */
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px;
+        /* Card width on tablet/desktop */
+    }
+
+    .card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: 480px;
+    }
+
+    .card__image img {
+        object-fit: cover;
+        height: 100%;
+    }
+
+    .card__content {
+        padding: 2rem;
+        gap: 1.25rem;
+    }
+
+    .card__category,
+    .card__date {
+        display: inline-block;
+    }
+
+    .card__date {
+        margin-left: auto;
+        font-size: var(--fs-date);
+    }
+
+    .card__author {
+        margin-top: auto;
+    }
+}
+
+/* 7) DESKTOP MEDIA QUERY (min-width: 1024px) */
+/* Optional: Adjust font-size or spacing if desired at larger breakpoints */
+@media (min-width: 1024px) {
+    body {
+        padding: 2rem;
+    }
+
+    .card__title {
+        font-size: 1.75rem;
+        /* 28px */
+    }
+
+    .card__description {
+        font-size: 1rem;
+        /* 16px */
+    }
+}

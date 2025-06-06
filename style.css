@@ -1,7 +1,12 @@
-/* 1) IMPORT FIGTREE FONT (weights 500 + 800) */
+/* ----------------------------------------------------------------------
+   1) IMPORT THE FIGTREE FONT (weights 500 + 800)
+   ---------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@500;800&display=swap");
 
-/* 2) GLOBAL RESET & ROOT VARIABLES */
+
+/* ----------------------------------------------------------------------
+   2) GLOBAL RESET & ROOT VARIABLES
+   ---------------------------------------------------------------------- */
 *,
 *::before,
 *::after {
@@ -11,22 +16,24 @@
 }
 
 :root {
-    /* --- Colors --- */
+    /* ----- COLORS ----- */
     --clr-background: hsl(212, 45%, 89%);
-    /* Very light blue (page background) */
+    /* very light blue (unused if we fill entire body with yellow) */
+    --clr-page-yellow: hsl(45, 90%, 58%);
+    /* match your gold/yellow canvas */
     --clr-card-bg: hsl(0, 0%, 100%);
-    /* White (card background) */
+    /* white for the card */
+    --clr-category-bg: hsl(45, 90%, 58%);
+    /* same gold for the “Learning” pill */
     --clr-text-dark: hsl(228, 12%, 48%);
-    /* Dark grayish blue (paragraphs, date, author name) */
-    --clr-text-title: hsl(228, 45%, 44%);
-    /* Dark blue (title, hover states) */
-    --clr-category: hsl(47, 88%, 63%);
-    /* Soft yellow (category label) */
+    /* dark gray-blue for body copy */
+    --clr-text-title: hsl(228, 15%, 10%);
+    /* nearly black for title */
+    --clr-text-title-hover: hsl(45, 90%, 58%);
+    /* same gold for title hover */
 
-    /* --- Typography --- */
+    /* ----- TYPOGRAPHY ----- */
     --ff-body: "Figtree", sans-serif;
-    --fs-body: 1rem;
-    /* 16px */
     --fs-category: 0.75rem;
     /* 12px */
     --fs-date: 0.75rem;
@@ -38,47 +45,73 @@
     --fs-author: 0.875rem;
     /* 14px */
 
-    /* --- Misc --- */
-    --radius-medium: 10px;
-    --shadow-card: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    /* ----- MISC ----- */
+    --radius-card: 10px;
+    /* We’ll use a “strong” solid black shadow offset so it matches your design exactly */
+    --shadow-card:
+        /* x-offset 10px, y-offset 10px, no blur, solid black */
+        10px 10px 0px 0px rgba(0, 0, 0, 1);
+    --transition-speed: 0.25s;
 }
 
-/* 3) BODY & CONTAINER */
+
+/* ----------------------------------------------------------------------
+   3) BODY & PAGE SETUP
+   ---------------------------------------------------------------------- */
 html {
     font-size: 100%;
 }
 
 body {
     min-height: 100vh;
-    background-color: var(--clr-background);
-    font-family: var(--ff-body);
-    font-size: var(--fs-body);
-    color: var(--clr-text-dark);
+    background-color: var(--clr-page-yellow);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    font-family: var(--ff-body);
+    color: var(--clr-text-dark);
 }
 
+
+/* ----------------------------------------------------------------------
+   4) THE CONTAINER + CARD STYLING (MOBILE-FIRST)
+   ---------------------------------------------------------------------- */
 .container {
+    /* We freeze the card at the mobile width (≈ 375px). 
+     On desktop, extra yellow will simply show on left/right. */
     max-width: 375px;
-    /* Mobile container width */
+    width: 100%;
 }
 
-/* 4) CARD STYLING (MOBILE FIRST) */
 .card {
     background-color: var(--clr-card-bg);
-    border-radius: var(--radius-medium);
+    border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    /* Make the hover effect apply if the user hovers anywhere on the card: */
+    transition: transform var(--transition-speed);
 }
 
+.card:hover {
+    /* Slight “lift” on hover so that the black shadow is more / less visible */
+    transform: translateY(-5px);
+}
+
+/* ----- IMAGE ON TOP ----- */
 .card__image img {
     display: block;
     width: 100%;
     height: auto;
+    /* Force the top corners also to have the same border-radius: */
+    border-top-left-radius: var(--radius-card);
+    border-top-right-radius: var(--radius-card);
 }
 
+/* ----- BODY CONTENT BELOW ----- */
 .card__content {
     padding: 1.5rem;
     display: flex;
@@ -86,30 +119,43 @@ body {
     gap: 1rem;
 }
 
-/* Category & Date (same line on mobile: category first, date below) */
+/* Category Pill */
 .card__category {
+    display: inline-block;
+    background-color: var(--clr-category-bg);
+    color: var(--clr-text-title-hover);
     font-size: var(--fs-category);
     font-weight: 800;
-    color: var(--clr-category);
-    letter-spacing: 1px;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
 }
 
+/* Date (below Category) */
 .card__date {
     font-size: var(--fs-date);
+    margin-top: 0.25rem;
     color: var(--clr-text-dark);
     opacity: 0.6;
 }
 
-/* Title */
+/* Title (H1) */
 .card__title {
     font-size: var(--fs-title);
     font-weight: 800;
-    color: var(--clr-text-title);
     line-height: 1.3;
+    color: var(--clr-text-title);
+    transition: color var(--transition-speed);
 }
 
-/* Description */
+/* On hover anywhere in the card, make the title gold */
+.card:hover .card__title {
+    color: var(--clr-text-title-hover);
+    cursor: pointer;
+}
+
+/* Description Paragraph */
 .card__description {
     font-size: var(--fs-description);
     line-height: 1.5;
@@ -117,13 +163,13 @@ body {
     opacity: 0.8;
 }
 
-/* Author Section (avatar + name side by side) */
+/* Author Row (avatar + name) */
 .card__author {
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-top: auto;
-    /* push author to bottom */
+    /* push the author to the bottom of the flex column */
 }
 
 .card__avatar {
@@ -135,76 +181,50 @@ body {
 
 .card__author-name {
     font-size: var(--fs-author);
-    color: var(--clr-text-dark);
     font-weight: 500;
+    color: var(--clr-text-dark);
 }
 
-/* 5) ATTRIBUTION (keep it small) */
+
+/* ----------------------------------------------------------------------
+   5) ATTRIBUTION FOOTER (AT THE BOTTOM) 
+      (“Challenge by Frontend Mentor. Coded by …”)
+   ---------------------------------------------------------------------- */
 .attribution {
-    margin-top: 1.5rem;
-    text-align: center;
+    margin-top: 2rem;
+    /* some space under the card */
     font-size: 0.625rem;
     /* 10px */
+    text-align: center;
     color: var(--clr-text-dark);
 }
 
 .attribution a {
-    color: var(--clr-text-title);
     text-decoration: none;
 }
 
-/* 6) DESKTOP LAYOUT (min-width: 768px & up to 1440px) */
+
+/* ----------------------------------------------------------------------
+   6) REMOVING ANY TWO-COLUMN LAYOUT AT “DESKTOP”:
+   
+   We DO NOT turn the card into a grid or side-by-side layout.
+   Simply center the single column in the viewport—nothing else changes.
+   ---------------------------------------------------------------------- */
 @media (min-width: 768px) {
+
+    /* Keep the same 375px card width, so more yellow appears on left/right */
     .container {
-        max-width: 730px;
-        /* Card width on tablet/desktop */
-    }
-
-    .card {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        height: 480px;
-    }
-
-    .card__image img {
-        object-fit: cover;
-        height: 100%;
-    }
-
-    .card__content {
-        padding: 2rem;
-        gap: 1.25rem;
-    }
-
-    .card__category,
-    .card__date {
-        display: inline-block;
-    }
-
-    .card__date {
-        margin-left: auto;
-        font-size: var(--fs-date);
-    }
-
-    .card__author {
-        margin-top: auto;
+        max-width: 375px;
     }
 }
 
-/* 7) DESKTOP MEDIA QUERY (min-width: 1024px) */
-/* Optional: Adjust font-size or spacing if desired at larger breakpoints */
-@media (min-width: 1024px) {
-    body {
-        padding: 2rem;
-    }
 
+/* ----------------------------------------------------------------------
+   7) OPTIONAL: Slightly Increase Title Size On Very Large Screens
+   ---------------------------------------------------------------------- */
+@media (min-width: 1024px) {
     .card__title {
         font-size: 1.75rem;
-        /* 28px */
-    }
-
-    .card__description {
-        font-size: 1rem;
-        /* 16px */
+        /* 28px on very large screens */
     }
 }

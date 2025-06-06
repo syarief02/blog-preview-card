@@ -46,7 +46,7 @@
 /* Remove transitions if user prefers reduced motion */
 @media (prefers-reduced-motion: reduce) {
     :root {
-        --transition-speed: 0s;
+        --transition-speed: 4s;
     }
 }
 

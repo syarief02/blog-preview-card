@@ -43,6 +43,13 @@
     --transition-speed: 0.25s;
 }
 
+/* Remove transitions if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --transition-speed: 0s;
+    }
+}
+
 /* -----------------------------------
    2) BODY & CONTAINER
    ----------------------------------- */
@@ -154,7 +161,7 @@ body {
 .card__date {
     font-size: var(--fs-date);
     /* 12px */
-    color:black;
+    color: black;
 
     opacity: 0.6;
     margin-bottom: 1rem;
@@ -213,7 +220,7 @@ body {
     /* 14px */
     font-weight: 500;
     /* Figtree 500 */
-    color:black;
+    color: black;
     /* Gray 500 */
 }
 

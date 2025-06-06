@@ -41,14 +41,16 @@
 
     --shadow-card: var(--shadow-x) var(--shadow-y) 0 var(--clr-gray-950);
     --transition-speed: 0.25s;
-}
 
-/* Remove transitions if user prefers reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    :root {
+    /* Remove transitions if user prefers reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+
         --transition-speed: 4s;
+
     }
 }
+
+
 
 /* -----------------------------------
    2) BODY & CONTAINER
@@ -177,7 +179,11 @@ body {
     color: var(--clr-gray-950);
     /* Gray 950 (nearly black) */
     line-height: 1.3;
-    transition: color var(--transition-speed) ease-in-out;
+
+    /* Only animate if user DID NOT request reduced motion */
+    @media (prefers-reduced-motion: no-preference) {
+        transition: transform var(--transition-speed) ease-in-out;
+    }
 }
 
 .card:hover .card__title {

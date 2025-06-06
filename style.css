@@ -91,10 +91,10 @@ body {
 }
 
 .card:hover {
-    @media (prefers-reduced-motion: no-preference) {
-        transform: translateY(-0.3125rem);
-        /* -5px → -0.3125rem */
-    }
+
+    transform: translateY(-0.3125rem);
+    /* -5px → -0.3125rem */
+
 }
 
 /* -----------------------------------

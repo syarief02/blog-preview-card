@@ -40,7 +40,7 @@ The goal of this challenge is to build out a responsive blog preview card compon
 Preview of the final design:
 
 <p align="center">
-  <img src="./preview.jpg" alt="Blog preview card screenshot" width="600">
+  <img src="./Capture.PNG" alt="Blog preview card screenshot" width="600">
 </p>
 
 > **Note:** For a closer look at mobile vs. desktop, resize your browser window or view on an actual device.
@@ -49,8 +49,7 @@ Preview of the final design:
 
 - **Solution Repository:** [github.com/syarief02/blog-preview-card](https://github.com/syarief02/blog-preview-card)
 - **Live Site URL:**
-
-[syarief02.github.io/blog-preview-card](https://syarief02.github.io/blog-preview-card)
+ [syarief02.github.io/blog-preview-card](https://syarief02.github.io/blog-preview-card)
 
 ---
 

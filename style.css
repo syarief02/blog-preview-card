@@ -30,7 +30,7 @@
     /* 14px */
 
     /* ---- SPACING & SHADOWS ---- */
-    --radius-card: 0.625rem;
+    --radius-card: 1rem;
     /* 10px */
     --radius-pill: 0.25rem;
     /* 4px */
@@ -140,10 +140,10 @@ body {
     font-size: var(--fs-category);
     font-weight: 800;
     /* Figtree 800 */
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 0.0625rem;
     /* 1px → 0.0625rem */
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.5rem;
     /* 4px 8px (0.25rem = 4px; 0.5rem = 8px) */
     border-radius: var(--radius-pill);
     margin-bottom: 0.25rem;

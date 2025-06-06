@@ -1,3 +1,5 @@
+```css
+
 /* -----------------------------------
    1) GLOBAL RESET & ROOT VARIABLES
    ----------------------------------- */
@@ -31,9 +33,9 @@
 
     /* ---- SPACING & SHADOWS ---- */
     --radius-card: 0.625rem;
-    /* 10px ÷ 16 = 0.625rem */
+    /* 10px */
     --radius-pill: 0.25rem;
-    /* 4px ÷ 16 = 0.25rem */
+    /* 4px */
 
     /* box-shadow offsets are 10px each → 0.625rem each */
     --shadow-x: 0.625rem;
@@ -113,7 +115,6 @@ body {
     display: block;
     width: 100%;
     height: auto;
-    /* If you ever replace with a non-SVG, you could add object-fit here */
 }
 
 /* -----------------------------------
@@ -124,8 +125,6 @@ body {
     /* 24px all around */
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    /* 16px between each child */
 }
 
 /* ----- CATEGORY PILL (“Learning”) ----- */
@@ -140,7 +139,8 @@ body {
     font-weight: 800;
     /* Figtree 800 */
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.0625rem;
+    /* 1px → 0.0625rem */
     padding: 0.25rem 0.5rem;
     /* 4px 8px (0.25rem = 4px; 0.5rem = 8px) */
     border-radius: var(--radius-pill);
@@ -154,16 +154,16 @@ body {
 .card__date {
     font-size: var(--fs-date);
     /* 12px */
-    color: var(--clr-gray-500);
-    /* Gray 500 */
+    color: hsl(0, 0%, 7%);
+
     opacity: 0.6;
-    margin-bottom: 1rem;
+    margin-top: 1rem;
     /* 16px gap before the H1 */
 }
 
 /* ----- TITLE (H1) ----- */
 .card__title {
-    font-size: var(--fs-title);
+    font-size: 1rem;
     /* 24px on mobile */
     font-weight: 800;
     /* Figtree 800 */
@@ -184,8 +184,8 @@ body {
     font-size: var(--fs-paragraph);
     /* 16px */
     line-height: 1.5;
-    color: var(--clr-gray-500);
-    /* Gray 500 */
+    color: hsl(0, 0%, 7%);
+
     opacity: 0.8;
 }
 
@@ -233,7 +233,7 @@ body {
    ----------------------------------- */
 @media (min-width: 64rem) {
     .card__title {
-        font-size: 1.75rem;
+        font-size: 1.25rem;
         /* 28px on very large screens (optional) */
     }
 }
@@ -243,7 +243,7 @@ body {
    ----------------------------------- */
 .attribution {
     margin-block-start: 2rem;
-    /* 2rem top gap (32px) */
+    /* 32px */
     font-size: 0.625rem;
     /* 10px */
     text-align: center;
@@ -253,3 +253,5 @@ body {
 .attribution a {
     text-decoration: none;
 }
+
+```

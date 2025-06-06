@@ -50,8 +50,7 @@ Preview of the final design:
 - **Solution Repository:** [github.com/syarief02/blog-preview-card](https://github.com/syarief02/blog-preview-card)
 - **Live Site URL:**
 
-  - _If you have deployed via GitHub Pages or a similar service, update this link accordingly._
-  - Example: [syarief02.github.io/blog-preview-card](https://syarief02.github.io/blog-preview-card)
+[syarief02.github.io/blog-preview-card](https://syarief02.github.io/blog-preview-card)
 
 ---
 
